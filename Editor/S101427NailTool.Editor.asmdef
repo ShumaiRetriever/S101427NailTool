@@ -2,8 +2,8 @@
     "name": "S101427NailTool.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:b100ee047cc24cb46b0e31f4160a322d",
-        "GUID:fc900867c0f47cd49b6e2ae4ef907300"
+        "S101427NailTool.Runtime",
+        "nadena.dev.modular-avatar.core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
