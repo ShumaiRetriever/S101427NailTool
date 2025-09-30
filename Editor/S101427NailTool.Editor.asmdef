@@ -1,0 +1,16 @@
+{
+    "name": "S101427NailTool.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b100ee047cc24cb46b0e31f4160a322d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
