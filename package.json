@@ -10,9 +10,10 @@
   },
   "license": "MIT",
   "licenseUrl": "https://github.com/ShumaiRetriever/S101427NailTool/blob/main/LICENSE",
-  "changelogUrl": "",
+  "changelogUrl": "https://github.com/ShumaiRetriever/S101427NailTool/blob/main/CANGELOG.md",
   "vpmDependencies": {
     "nadena.dev.modular-avatar": "^1.8.0"
   }
 
 }
+
