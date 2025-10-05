@@ -1,18 +1,22 @@
 {
-  "name": "com.s101427.nail-tool",
+  "name": "com.S101427.nail-tool",
   "displayName": "S101427 Nail Tool",
   "version": "1.0.0",
   "unity": "2022.3",
   "description": "ネイルチップ自動配置・調整ツール",
   "author": {
-    "name": "101427"
-    "url":"https://github.com/ShumaiRetriever"
+    "name": "101427",
+    "url": "https://github.com/ShumaiRetriever"
   },
   "license": "MIT",
   "licenseUrl": "https://github.com/ShumaiRetriever/S101427NailTool/blob/main/LICENSE",
-  "changelogUrl": "",
+  "changelogUrl": "https://github.com/ShumaiRetriever/S101427NailTool/blob/main/CANGELOG.md",
   "vpmDependencies": {
     "nadena.dev.modular-avatar": "^1.8.0"
   }
 
 }
+
+
+
+
