@@ -6,7 +6,7 @@
   "description": "ネイルチップ自動配置・調整ツール",
   "author": {
     "name": "101427",
-    "url":"https://github.com/ShumaiRetriever"
+    "url": "https://github.com/ShumaiRetriever"
   },
   "license": "MIT",
   "licenseUrl": "https://github.com/ShumaiRetriever/S101427NailTool/blob/main/LICENSE",
@@ -16,6 +16,7 @@
   }
 
 }
+
 
 
 
