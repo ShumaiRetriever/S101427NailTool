@@ -1,5 +1,5 @@
 {
-  "name": "com.S101427.nail-tool",
+  "name": "com.s101427.nail-tool",
   "displayName": "S101427 Nail Tool",
   "version": "1.0.0",
   "unity": "2022.3",
@@ -16,6 +16,7 @@
   }
 
 }
+
 
 
 
