@@ -5,7 +5,9 @@
         "S101427NailTool.Runtime",
         "nadena.dev.modular-avatar.core"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
