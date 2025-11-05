@@ -2,9 +2,10 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using VRC.SDKBase;
 
 // 指ごとのネイルオブジェクトの調整データを管理
-public class NailAdjusterData : MonoBehaviour
+public class NailAdjusterData : MonoBehaviour, IEditorOnly
 {
     // 1本の指に対応するネイルオブジェクトの情報
     [System.Serializable]

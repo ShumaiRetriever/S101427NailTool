@@ -2,9 +2,10 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using VRC.SDKBase;
 
 // ネイルオブジェクトの位置・回転・スケールを一括補正するコンポーネント
-public class NailPositionCorrector : MonoBehaviour
+public class NailPositionCorrector : MonoBehaviour, IEditorOnly
 {
     // 1つのネイルに対する補正データ
     [System.Serializable]
