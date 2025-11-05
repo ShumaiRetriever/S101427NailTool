@@ -370,6 +370,7 @@ public class NailToolWindow : EditorWindow
 #if MODULAR_AVATAR
     private void SetupForModularAvatar()
     {
+        // Get Avatar GameObject
         if (data == null || data.GetComponentInParent<Animator>() == null)
         {
             EditorUtility.DisplayDialog("Error", "データまたはアバターが見つかりません。", "OK");
@@ -378,13 +379,7 @@ public class NailToolWindow : EditorWindow
         var animator = data.GetComponentInParent<Animator>();
         GameObject rootObject = data.gameObject;
 
-        // --- MAの基本設定 ---
-        var meshSettings = rootObject.GetComponent<ModularAvatarMeshSettings>();
-        if (meshSettings == null) meshSettings = Undo.AddComponent<ModularAvatarMeshSettings>(rootObject);
-        Undo.RecordObject(meshSettings, "Add MA Mesh Settings");
-        meshSettings.InheritProbeAnchor = ModularAvatarMeshSettings.InheritMode.Inherit;
-        meshSettings.InheritBounds = ModularAvatarMeshSettings.InheritMode.DontSet;
-
+        // NailMappingごとにBone Proxyを設定し、座標を更新
         foreach (var mapping in data.nailMappings)
         {
             if (mapping.nailObject != null)
