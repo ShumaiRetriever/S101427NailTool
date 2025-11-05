@@ -414,6 +414,7 @@ public class NailToolWindow : EditorWindow
                 if (distalBone != null)
                 {
                     boneProxy.target = distalBone;
+                    boneProxy.attachmentMode = BoneProxyAttachmentMode.AsChildKeepWorldPose;
                     Debug.Log($"boneProxy properties: target={boneProxy.target}, attachmentMode={boneProxy.attachmentMode}");
 
                     // --- 補正コンポーネントにデータを焼き付け ---
