@@ -6,8 +6,7 @@
         "nadena.dev.modular-avatar.core",
         "nadena.dev.modular-avatar.core.editor",
         "VRC.SDKBase",
-        "VRC.SDK3A",
-        "nadena.dev.ndmf"
+        "VRC.SDK3A"
     ],
     "includePlatforms": [
         "Editor"

@@ -385,20 +385,6 @@ public class NailToolWindow : EditorWindow
         meshSettings.InheritProbeAnchor = ModularAvatarMeshSettings.InheritMode.Inherit;
         meshSettings.InheritBounds = ModularAvatarMeshSettings.InheritMode.DontSet;
 
-        // --- 補正コンポーネントの準備 ---
-        var corrector = rootObject.GetComponent<NailPositionCorrector>();
-        if (corrector == null) corrector = Undo.AddComponent<NailPositionCorrector>(rootObject);
-        if (corrector == null)
-        {
-             // AddComponentが失敗した場合のエラーハンドリング
-            Debug.LogError("NailPositionCorrectorコンポーネントの追加に失敗しました。スクリプトがEditorフォルダに入っていないか、コンパイルエラーがないか確認してください。");
-            EditorUtility.DisplayDialog("エラー", "NailPositionCorrectorコンポーネントの追加に失敗しました。\nConsoleウィンドウを確認してください。", "OK");
-            return;
-        }
-        Undo.RecordObject(corrector, "Setup Nail Corrector");
-        corrector.corrections.Clear(); 
-
-        int proxyCount = 0;
         foreach (var mapping in data.nailMappings)
         {
             if (mapping.nailObject != null)
@@ -413,42 +399,18 @@ public class NailToolWindow : EditorWindow
                 var distalBone = animator.GetBoneTransform(mapping.finger);
                 if (distalBone != null)
                 {
+                    // --- Bone Proxyの設定 ---
                     boneProxy.target = distalBone;
                     boneProxy.attachmentMode = BoneProxyAttachmentMode.AsChildKeepWorldPose;
                     Debug.Log($"boneProxy properties: target={boneProxy.target}, attachmentMode={boneProxy.attachmentMode}");
 
-                    // --- 補正コンポーネントにデータを焼き付け ---
+                    // --- 位置補正コンポーネントの設定 ---
                     ApplyTransform(mapping);
-                    var nailTransform = mapping.nailObject.transform;
-                    
-                    Vector3 correctLocalPos = distalBone.InverseTransformPoint(nailTransform.position);
-                    Quaternion correctLocalRot = Quaternion.Inverse(distalBone.rotation) * nailTransform.rotation;
-                    
-                    Vector3 correctLocalScale = new Vector3(
-                        nailTransform.lossyScale.x / distalBone.lossyScale.x,
-                        nailTransform.lossyScale.y / distalBone.lossyScale.y,
-                        nailTransform.lossyScale.z / distalBone.lossyScale.z
-                    );
-
-                    var correction = new NailPositionCorrector.CorrectionData
-                    {
-                        nailTransform = nailTransform,
-                        correctLocalPosition = correctLocalPos,
-                        correctLocalRotation = correctLocalRot,
-                        correctLocalScale = correctLocalScale
-                    };
-                    corrector.corrections.Add(correction);
-                    Debug.Log($"Added correction for {mapping.finger}:");
-                    Debug.Log($"  distalBone: {distalBone.name}, bonePos: {distalBone.position}, boneRot: {distalBone.rotation.eulerAngles}, boneScale: {distalBone.lossyScale}");
-                    Debug.Log($"  nailWorldPos: {nailTransform.position}, nailWorldRot: {nailTransform.rotation.eulerAngles}, nailWorldScale: {nailTransform.lossyScale}");
-                    Debug.Log($"  computed nailLocalPos: {distalBone.InverseTransformPoint(nailTransform.position)}, nailLocalRot: {(Quaternion.Inverse(distalBone.rotation) * nailTransform.rotation).eulerAngles}");
-
-                    proxyCount++;
                 }
             }
         }
         
-        EditorUtility.DisplayDialog("成功", $"Modular Avatarの設定と、再生時の位置補正セットアップが完了しました。\n- Bone Proxyをネイルに{proxyCount}個設定\n- 位置補正コンポーネントをルートに設定", "OK");
+        EditorUtility.DisplayDialog("成功", $"Modular Avatarの設定と、再生時の位置補正セットアップが完了しました。\n- Bone Proxyをネイルに{data.nailMappings.Count()}個設定\n- 位置補正コンポーネントをルートに設定", "OK");
     }
 #endif
 
