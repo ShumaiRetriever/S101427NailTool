@@ -10,8 +10,16 @@ public class S101427NailToolMAPlugin : Plugin<S101427NailToolMAPlugin>
 {
     protected override void Configure()
     {
-        InPhase(BuildPhase.Generating)
+        InPhase(BuildPhase.Resolving)
             .BeforePlugin("nadena.dev.modular-avatar")
-            .Run("Do something", ctx => { /* ... */ });
+            .Run("Apply NailPositionCorrector Datas", ctx =>
+            {
+                Debug.Log("Apply NailPositionCorrector Datas");
+                foreach (var corrector in ctx.AvatarRootObject.GetComponentsInChildren<NailPositionCorrector>())
+                {
+                    // corrector.Apply();
+                    // Object.DestroyImmediate(corrector); // for Debug
+                }
+            });
     }
 }

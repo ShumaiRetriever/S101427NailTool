@@ -22,18 +22,16 @@ public class NailPositionCorrector : MonoBehaviour, IEditorOnly
     }
 
     // 全ネイルの補正データリスト
+    [SerializeField]
     public List<CorrectionData> corrections = new List<CorrectionData>();
-    // 一度だけ補正するためのフラグ
-    private bool hasCorrected = false;
 
-
-    void LateUpdate()
+    public void Apply()
     {
-        Debug.Log("NailPositionCorrector LateUpdate called.");
+        Debug.Log("Applying NailPositionCorrector...", this);
 
-        if (hasCorrected || corrections.Count == 0)
+        if (corrections.Count == 0)
         {
-            Debug.Log("No corrections needed or already corrected.");
+            Debug.LogWarning("No corrections needed or already corrected.");
             return;
         }
 
@@ -41,20 +39,19 @@ public class NailPositionCorrector : MonoBehaviour, IEditorOnly
         {
             if (data.nailTransform != null)
             {
-                // ★このログを追加
-                Debug.Log($"Correcting {data.nailTransform.name}: Pos={data.correctLocalPosition}", data.nailTransform.gameObject);
+                Debug.Log($"[BEFORE    ] Target Nail: {data.nailTransform.name} (Pos={data.correctLocalPosition}, Rot={data.correctLocalRotation.eulerAngles}, Scale={data.correctLocalScale})", data.nailTransform);
+                Debug.Log($"[CORRECTION] Applying Position={data.correctLocalPosition}, Rotation={data.correctLocalRotation.eulerAngles}, Scale={data.correctLocalScale}");
 
                 data.nailTransform.localPosition = data.correctLocalPosition;
                 data.nailTransform.localRotation = data.correctLocalRotation;
                 data.nailTransform.localScale = data.correctLocalScale;
+
+                Debug.Log($"[AFTER     ] Target Nail: {data.nailTransform.name} (Pos={data.nailTransform.localPosition}, Rot={data.nailTransform.localRotation.eulerAngles}, Scale={data.nailTransform.localScale})", data.nailTransform);
             }
             else
             {
-                // ★nullチェックも入れておくと安心
                 Debug.LogWarning("data.nailTransform is null in corrections list.");
             }
         }
-        hasCorrected = true;
-        Destroy(this);
     }
 }
