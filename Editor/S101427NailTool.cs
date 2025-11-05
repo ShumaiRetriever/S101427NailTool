@@ -414,6 +414,7 @@ public class NailToolWindow : EditorWindow
                 if (distalBone != null)
                 {
                     boneProxy.target = distalBone;
+                    Debug.Log($"boneProxy properties: target={boneProxy.target}, attachmentMode={boneProxy.attachmentMode}");
 
                     // --- 補正コンポーネントにデータを焼き付け ---
                     ApplyTransform(mapping);
@@ -428,13 +429,18 @@ public class NailToolWindow : EditorWindow
                         nailTransform.lossyScale.z / distalBone.lossyScale.z
                     );
 
-                    corrector.corrections.Add(new NailPositionCorrector.CorrectionData
+                    var correction = new NailPositionCorrector.CorrectionData
                     {
                         nailTransform = nailTransform,
                         correctLocalPosition = correctLocalPos,
                         correctLocalRotation = correctLocalRot,
                         correctLocalScale = correctLocalScale
-                    });
+                    };
+                    corrector.corrections.Add(correction);
+                    Debug.Log($"Added correction for {mapping.finger}:");
+                    Debug.Log($"  distalBone: {distalBone.name}, bonePos: {distalBone.position}, boneRot: {distalBone.rotation.eulerAngles}, boneScale: {distalBone.lossyScale}");
+                    Debug.Log($"  nailWorldPos: {nailTransform.position}, nailWorldRot: {nailTransform.rotation.eulerAngles}, nailWorldScale: {nailTransform.lossyScale}");
+                    Debug.Log($"  computed nailLocalPos: {distalBone.InverseTransformPoint(nailTransform.position)}, nailLocalRot: {(Quaternion.Inverse(distalBone.rotation) * nailTransform.rotation).eulerAngles}");
 
                     proxyCount++;
                 }
