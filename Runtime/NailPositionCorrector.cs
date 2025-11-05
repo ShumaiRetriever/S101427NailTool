@@ -26,11 +26,14 @@ public class NailPositionCorrector : MonoBehaviour, IEditorOnly
     // 一度だけ補正するためのフラグ
     private bool hasCorrected = false;
 
-    // LateUpdateで一度だけ全ネイルのTransformを補正し、完了後に自身を破棄
+
     void LateUpdate()
     {
+        Debug.Log("NailPositionCorrector LateUpdate called.");
+
         if (hasCorrected || corrections.Count == 0)
         {
+            Debug.Log("No corrections needed or already corrected.");
             return;
         }
 
@@ -38,9 +41,17 @@ public class NailPositionCorrector : MonoBehaviour, IEditorOnly
         {
             if (data.nailTransform != null)
             {
+                // ★このログを追加
+                Debug.Log($"Correcting {data.nailTransform.name}: Pos={data.correctLocalPosition}", data.nailTransform.gameObject);
+
                 data.nailTransform.localPosition = data.correctLocalPosition;
                 data.nailTransform.localRotation = data.correctLocalRotation;
                 data.nailTransform.localScale = data.correctLocalScale;
+            }
+            else
+            {
+                // ★nullチェックも入れておくと安心
+                Debug.LogWarning("data.nailTransform is null in corrections list.");
             }
         }
         hasCorrected = true;

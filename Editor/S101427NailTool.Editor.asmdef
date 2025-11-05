@@ -3,7 +3,11 @@
     "rootNamespace": "",
     "references": [
         "S101427NailTool.Runtime",
-        "nadena.dev.modular-avatar.core"
+        "nadena.dev.modular-avatar.core",
+        "nadena.dev.modular-avatar.core.editor",
+        "VRC.SDKBase",
+        "VRC.SDK3A",
+        "nadena.dev.ndmf"
     ],
     "includePlatforms": [
         "Editor"
